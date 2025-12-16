@@ -12,10 +12,10 @@ export class RegistrationPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.userNameInput = page.locator('[test_id="username_input"]');
-    this.emailInput = page.locator('[test_id="email-input"]');
-    this.passwordInput = page.locator('[test_id="password-input"]');
-    this.registerButton = page.locator('[test_id="register-button"]');
+    this.userNameInput = page.locator('input[data-testid="username-input"]');
+    this.emailInput = page.locator('input[data-testid="email-input"]');
+    this.passwordInput = page.locator('input[data-testid="password-input"]');
+    this.registerButton = page.locator('[data-testid="submit-button"]');
   }
   async open() {
     await this.page.goto(this.url);
@@ -24,17 +24,21 @@ export class RegistrationPage {
 
   async fill_username(username: string) {
     await this.userNameInput.fill(username);
+    return this;
   }
 
   async fill_email(email: string) {
     await this.emailInput.fill(email);
+    return this;
   }
 
   async fill_password(password: string) {
     await this.passwordInput.fill(password);
+    return this;
   }
 
   async submit() {
     await this.registerButton.click();
+    return this;
   }
 }

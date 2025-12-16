@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import { RegistrationPage } from "./registration_page.ts";
 
 export class LoginPage {
   readonly page: Page;
@@ -13,11 +14,13 @@ export class LoginPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.usernameInput = page.locator('[data-testid="username-input"]');
-    this.passwordInput = page.locator('[data-testid="password-input"]');
-    this.submitButton = page.locator('[data-testid="submit-button"]');
-    this.registerLink = page.locator('[data-testid="register-button"]');
-    this.forgotPasswordLink = page.locator('[data-testid="registration-link"]');
+    this.usernameInput = page.locator('input[data-testid="username-input"]');
+    this.passwordInput = page.locator('input[data-testid="password-input"]');
+    this.submitButton = page.locator('button[data-testid="submit-button"]');
+    this.registerLink = page.locator(".bold-link");
+    this.forgotPasswordLink = page.locator(
+      'link[data-testid="registration-link"]'
+    );
   }
 
   async open() {
@@ -41,5 +44,6 @@ export class LoginPage {
 
   async go_to_registration() {
     await this.registerLink.click();
+    return new RegistrationPage(this.page);
   }
 }
