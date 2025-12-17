@@ -13,7 +13,7 @@ export class AccountApi {
     return this;
   }
 
-  async createAccount(startBalance: number, type: string) {
+  async createAccount(startBalance: number, type = "Test") {
     const response = await this.request.post(
       "https://tegb-backend-877a0b063d29.herokuapp.com/tegb/accounts/create",
       {
