@@ -8,6 +8,7 @@ export class RegistrationPage {
   readonly userNameInput: Locator;
   readonly passwordInput: Locator;
   readonly registerButton: Locator;
+  readonly successMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -16,6 +17,9 @@ export class RegistrationPage {
     this.emailInput = page.locator('input[data-testid="email-input"]');
     this.passwordInput = page.locator('input[data-testid="password-input"]');
     this.registerButton = page.locator('[data-testid="submit-button"]');
+    this.successMessage = page.locator(
+      '[data-testid="sdata-testid="success-message""]'
+    );
   }
   async open() {
     await this.page.goto(this.url);

@@ -34,7 +34,7 @@ test.describe("User full flow", () => {
       await registrationPage.fill_email(user.email);
       await registrationPage.submit();
 
-      await expect(page.getByText("Registrace úspěšná")).toBeVisible();
+      await expect(registrationPage.successMessage).toBeVisible();
     });
 
     const authApi = new AuthApi(request);

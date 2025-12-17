@@ -26,4 +26,14 @@ export class AuthApi {
   getToken(): string {
     return this.token;
   }
+  async register(username: string, email: string, password: string) {
+    const response = await this.request.post(
+      "https://tegb-backend-877a0b063d29.herokuapp.com/tegb/register",
+      {
+        data: { username, email, password },
+      }
+    );
+
+    expect(response.status()).toBe(201);
+  }
 }
