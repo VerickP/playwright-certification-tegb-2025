@@ -2,29 +2,28 @@ import { test, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
 
 test("Login API returns token", async ({ request }) => {
-  const user = {
-    username: faker.internet.username(),
-    email: faker.internet.email(),
-    password: "123498484Mrkev",
-  };
+	const apiUrl = process.env.API_BASE_URL;
 
-  await request.post(
-    "https://tegb-backend-877a0b063d29.herokuapp.com/tegb/register",
-    { data: user }
-  );
+	if (!apiUrl) {
+		throw new Error("Missing API_BASE_URL in .env file!");
+	}
+	const user = {
+		username: faker.internet.username(),
+		email: faker.internet.email(),
+		password: "123498484Mrkev",
+	};
 
-  const response = await request.post(
-    "https://tegb-backend-877a0b063d29.herokuapp.com/tegb/login",
-    {
-      data: {
-        username: user.username,
-        password: user.password,
-      },
-    }
-  );
+	await request.post(`${apiUrl}/tegb/register`, { data: user });
 
-  expect(response.status()).toBe(201);
+	const response = await request.post(`${apiUrl}/tegb/login`, {
+		data: {
+			username: user.username,
+			password: user.password,
+		},
+	});
 
-  const body = await response.json();
-  expect(body.access_token).toBeTruthy();
+	expect(response.status()).toBe(201);
+
+	const body = await response.json();
+	expect(body.access_token).toBeTruthy();
 });

@@ -1,36 +1,43 @@
 import { APIRequestContext, expect } from "@playwright/test";
 
 export class AccountApi {
-  private request: APIRequestContext;
-  private token!: string;
+	private request: APIRequestContext;
+	private token!: string;
+	private apiUrl: string;
 
-  constructor(request: APIRequestContext) {
-    this.request = request;
-  }
+	constructor(request: APIRequestContext) {
+		this.request = request;
 
-  withToken(token: string): this {
-    this.token = token;
-    return this;
-  }
+		if (!process.env.API_BASE_URL) {
+			throw new Error("Missing API_BASE_URL in .env");
+		}
 
-  async createAccount(startBalance: number, type = "Test") {
-    const response = await this.request.post(
-      "https://tegb-backend-877a0b063d29.herokuapp.com/tegb/accounts/create",
-      {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-          "Content-Type": "application/json",
-        },
-        data: { startBalance, type },
-      }
-    );
+		this.apiUrl = process.env.API_BASE_URL;
+	}
 
-    expect(response.status()).toBe(201);
+	withToken(token: string): this {
+		this.token = token;
+		return this;
+	}
 
-    const body = await response.json();
-    return {
-      accountNumber: body.accountNumber,
-      balance: body.balance,
-    };
-  }
+	async createAccount(startBalance: number, type = "Test") {
+		const response = await this.request.post(
+			`${this.apiUrl}/tegb/accounts/create`,
+			{
+				headers: {
+					Authorization: `Bearer ${this.token}`,
+					"Content-Type": "application/json",
+				},
+				data: { startBalance, type },
+			}
+		);
+
+		expect(response.status()).toBe(201);
+
+		const body = await response.json();
+		return {
+			accountNumber: body.accountNumber,
+			balance: body.balance,
+		};
+	}
 }
