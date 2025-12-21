@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import balances from "../../assets/ddt/bank_account_balances.json";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/cs_CZ";
 import { AuthApi } from "../../src/pages/api/auth_api";
 import { AccountApi } from "../../src/pages/api/account_api";
 import { LoginPage } from "../../src/pages/login_page";
@@ -26,9 +26,9 @@ balances.forEach(({ balance }) => {
 
 		const loginPage = new LoginPage(page);
 		await loginPage.open();
-		await loginPage.fill_username(user.username);
-		await loginPage.fill_password(user.password);
-		await loginPage.submit_login();
+		await loginPage.fillUsername(user.username);
+		await loginPage.fillPassword(user.password);
+		await loginPage.submitLogin();
 
 		const dashboardPage = new DashboardPage(page);
 		await dashboardPage.expectOnDashboard();

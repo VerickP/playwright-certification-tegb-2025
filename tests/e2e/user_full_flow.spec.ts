@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../src/pages/login_page";
 import { RegistrationPage } from "../../src/pages/registration_page";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/cs_CZ";
 import { AuthApi } from "../../src/pages/api/auth_api";
 import { AccountApi } from "../../src/pages/api/account_api";
-import { DashboardPage } from "../../src/pages/dashboard_page.ts";
+import { DashboardPage } from "../../src/pages/dashboard_page";
 
 test.describe("User full flow", () => {
 	test("User can complete full banking flow", async ({ page, request }) => {
@@ -16,6 +16,7 @@ test.describe("User full flow", () => {
 
 		const loginPage = new LoginPage(page);
 		const registrationPage = new RegistrationPage(page);
+		//const dashboardPage = new DashboardPage(page);
 
 		let accountNumber: string;
 		let accountBalance: number;
@@ -26,7 +27,7 @@ test.describe("User full flow", () => {
 		});
 
 		await test.step("Register new user via frontend", async () => {
-			await loginPage.go_to_registration();
+			await loginPage.goToRegistration();
 			await expect(registrationPage.userNameInput).toBeVisible();
 
 			await registrationPage.fillUsername(user.username);
@@ -40,11 +41,9 @@ test.describe("User full flow", () => {
 		const authApi = new AuthApi(request);
 		const accountApi = new AccountApi(request);
 
-		await test.step("Login via API", async () => {
-			await authApi.login(user.username, user.password);
-		});
-
 		await test.step("Create bank account via API", async () => {
+			await authApi.login(user.username, user.password);
+
 			const account = await accountApi
 				.withToken(authApi.getToken())
 				.createAccount(10000, "Test");
@@ -58,9 +57,9 @@ test.describe("User full flow", () => {
 
 		await test.step("Login via frontend with newly created user", async () => {
 			await loginPage.open();
-			await loginPage.fill_username(user.username);
-			await loginPage.fill_password(user.password);
-			await loginPage.submit_login();
+			await loginPage.fillUsername(user.username);
+			await loginPage.fillPassword(user.password);
+			await loginPage.submitLogin();
 
 			await expect(page).toHaveURL(/\/dashboard$/);
 		});
@@ -70,7 +69,7 @@ test.describe("User full flow", () => {
 			name: faker.person.firstName(),
 			surname: faker.person.lastName(),
 			email: user.email,
-			phone: faker.phone.number(),
+			phone: faker.string.numeric(9),
 			age: faker.number.int({ min: 30, max: 70 }),
 		};
 
@@ -90,6 +89,7 @@ test.describe("User full flow", () => {
 
 		await test.step("Logout", async () => {
 			await dashboardPage.logout();
+			await expect(page).toHaveURL(/\/$/);
 		});
 	});
 });

@@ -3,7 +3,7 @@ import { RegistrationPage } from "./registration_page.ts";
 
 export class LoginPage {
 	readonly page: Page;
-	readonly url = "https://tegb-frontend-88542200c6db.herokuapp.com/";
+	readonly url: string;
 
 	readonly usernameInput: Locator;
 	readonly passwordInput: Locator;
@@ -12,19 +12,17 @@ export class LoginPage {
 	readonly forgotPasswordLink: Locator;
 
 	constructor(page: Page) {
+		if (!process.env.BASE_URL) {
+			throw new Error("Missing BASE_URL in .env");
+		}
 		this.page = page;
+		this.url = process.env.BASE_URL;
 
-		this.usernameInput = page.locator(
-			'input[data-testid="username-input"]'
-		);
-		this.passwordInput = page.locator(
-			'input[data-testid="password-input"]'
-		);
-		this.submitButton = page.locator('button[data-testid="submit-button"]');
-		this.registerLink = page.locator(".bold-link");
-		this.forgotPasswordLink = page.locator(
-			'link[data-testid="registration-link"]'
-		);
+		this.usernameInput = page.getByTestId("username-input");
+		this.passwordInput = page.getByTestId("password-input");
+		this.submitButton = page.getByTestId("submit-button");
+		this.registerLink = page.getByTestId("register-button");
+		this.forgotPasswordLink = page.getByTestId("registration-link");
 	}
 
 	async open() {
@@ -32,21 +30,22 @@ export class LoginPage {
 		return this;
 	}
 
-	async fill_username(username: string) {
+	async fillUsername(username: string) {
 		await this.usernameInput.fill(username);
 		return this;
 	}
 
-	async fill_password(password: string) {
+	async fillPassword(password: string) {
 		await this.passwordInput.fill(password);
 		return this;
 	}
 
-	async submit_login() {
+	async submitLogin() {
 		await this.submitButton.click();
+		return this;
 	}
 
-	async go_to_registration() {
+	async goToRegistration() {
 		await this.registerLink.click();
 		return new RegistrationPage(this.page);
 	}

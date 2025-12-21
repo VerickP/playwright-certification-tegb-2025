@@ -3,7 +3,8 @@ import { Locator } from "@playwright/test";
 
 export class RegistrationPage {
 	readonly page: Page;
-	readonly url = "https://tegb-frontend-88542200c6db.herokuapp.com/register";
+	readonly url: string;
+
 	readonly emailInput: Locator;
 	readonly userNameInput: Locator;
 	readonly passwordInput: Locator;
@@ -11,17 +12,17 @@ export class RegistrationPage {
 	readonly successMessage: Locator;
 
 	constructor(page: Page) {
+		if (!process.env.BASE_URL) {
+			throw new Error("Missing BASE_URL in .env");
+		}
 		this.page = page;
+		this.url = `${process.env.BASE_URL}/register`;
 
-		this.userNameInput = page.locator(
-			'input[data-testid="username-input"]'
-		);
-		this.emailInput = page.locator('input[data-testid="email-input"]');
-		this.passwordInput = page.locator(
-			'input[data-testid="password-input"]'
-		);
-		this.registerButton = page.locator('[data-testid="submit-button"]');
-		this.successMessage = page.locator('[data-testid="success-message"]');
+		this.userNameInput = page.getByTestId("username-input");
+		this.emailInput = page.getByTestId("email-input");
+		this.passwordInput = page.getByTestId("password-input");
+		this.registerButton = page.getByTestId("submit-button");
+		this.successMessage = page.getByTestId("success-message");
 	}
 	async open() {
 		await this.page.goto(this.url);

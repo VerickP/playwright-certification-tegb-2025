@@ -123,10 +123,16 @@ export class DashboardPage {
 	}
 
 	async expectProfileData(profile: UserProfile) {
-		await expect(this.page.getByText(profile.name)).toBeVisible();
-		await expect(this.page.getByText(profile.surname)).toBeVisible();
-		await expect(this.page.getByText(profile.email)).toBeVisible();
-		await expect(this.page.getByText(profile.phone)).toBeVisible();
+		await expect(this.page.getByTestId("name")).toContainText(profile.name);
+		await expect(this.page.getByTestId("surname")).toContainText(
+			profile.surname
+		);
+		await expect(this.page.getByTestId("email")).toContainText(
+			profile.email
+		);
+		await expect(this.page.getByTestId("phone")).toContainText(
+			profile.phone
+		);
 
 		await expect(this.page.getByTestId("age")).toContainText(
 			profile.age.toString()

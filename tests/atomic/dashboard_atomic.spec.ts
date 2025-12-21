@@ -17,9 +17,9 @@ test.describe("Dashboard Atomic Tests", () => {
 
 		const loginPage = new LoginPage(page);
 		await loginPage.open();
-		await loginPage.fill_username(username);
-		await loginPage.fill_password(password);
-		await loginPage.submit_login();
+		await loginPage.fillUsername(username);
+		await loginPage.fillPassword(password);
+		await loginPage.submitLogin();
 
 		dashboard = new DashboardPage(page);
 		await dashboard.expectOnDashboard();
@@ -76,8 +76,6 @@ test.describe("Dashboard Atomic Tests", () => {
 
 	test("Logout - Basic functionality check", async ({ page }) => {
 		await dashboard.logout();
-		await expect(page).toHaveURL(
-			"https://tegb-frontend-88542200c6db.herokuapp.com/"
-		);
+		await expect(page).toHaveURL(/\/$/);
 	});
 });

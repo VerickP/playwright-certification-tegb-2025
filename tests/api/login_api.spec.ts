@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/cs_CZ";
 
 test("Login API returns token", async ({ request }) => {
 	const apiUrl = process.env.API_BASE_URL;
