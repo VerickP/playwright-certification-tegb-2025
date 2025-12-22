@@ -49,4 +49,11 @@ export class LoginPage {
 		await this.registerLink.click();
 		return new RegistrationPage(this.page);
 	}
+	async login(username: string, password: string) {
+		await this.open();
+		await this.fillUsername(username);
+		await this.fillPassword(password);
+		await this.submitLogin();
+		return this;
+	}
 }

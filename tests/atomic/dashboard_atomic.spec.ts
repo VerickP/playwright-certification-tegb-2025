@@ -14,12 +14,7 @@ test.describe("Dashboard Atomic Tests", () => {
 				"Missing DASHBOARD_USERNAME or DASHBOARD_PASSWORD in .env"
 			);
 		}
-
-		const loginPage = new LoginPage(page);
-		await loginPage.open();
-		await loginPage.fillUsername(username);
-		await loginPage.fillPassword(password);
-		await loginPage.submitLogin();
+		await new LoginPage(page).login(username, password);
 
 		dashboard = new DashboardPage(page);
 		await dashboard.expectOnDashboard();

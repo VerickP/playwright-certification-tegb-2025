@@ -52,6 +52,7 @@ export class DashboardPage {
 
 	readonly accountRows: Locator;
 	readonly saveProfileButton: Locator;
+	readonly profileSummary: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -71,6 +72,7 @@ export class DashboardPage {
 		);
 		this.menuSupport = page.locator("//li[contains(text(),'Podpora')]");
 
+		this.profileSummary = page.getByTestId("account-summary");
 		this.profileDetailsTitle = page.getByTestId("profile-details-title");
 		this.editProfileButton = page.getByTestId("toggle-edit-profile-button");
 
