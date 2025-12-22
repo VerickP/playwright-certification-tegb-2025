@@ -27,8 +27,10 @@ export default defineConfig({
 	globalTimeout: 1 * 60 * 60 * 1000,
 	expect: {
 		timeout: 7_000, //timeout cekáni na maximální limit čekání v rámci assertu
+		toHaveScreenshot: {
+			pathTemplate: "{testDir}/{testFile}-snapshots/{arg}{ext}",
+		},
 	},
-
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		actionTimeout: 7_0000,

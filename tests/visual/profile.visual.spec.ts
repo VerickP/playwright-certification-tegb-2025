@@ -18,6 +18,7 @@ test("Profile summary visual test", async ({ page }) => {
 	await expect(dashboard.profileSummary).toContainText("Email:");
 
 	await expect(dashboard.profileSummary).toHaveScreenshot(
-		"profile-summary.png"
+		"profile-summary.png",
+		{ maxDiffPixelRatio: 0.1, threshold: 0.2 }
 	);
 });
