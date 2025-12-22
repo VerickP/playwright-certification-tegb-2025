@@ -28,7 +28,8 @@ export default defineConfig({
 	expect: {
 		timeout: 7_000, //timeout cekáni na maximální limit čekání v rámci assertu
 		toHaveScreenshot: {
-			pathTemplate: "{testDir}/{testFile}-snapshots/{arg}{ext}",
+			pathTemplate:
+				"tests/visual/profile.visual.spec.ts-snapshots/profile-summary.png",
 		},
 	},
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
