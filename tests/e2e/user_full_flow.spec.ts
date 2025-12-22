@@ -16,7 +16,6 @@ test.describe("User full flow", () => {
 
 		const loginPage = new LoginPage(page);
 		const registrationPage = new RegistrationPage(page);
-		//const dashboardPage = new DashboardPage(page);
 
 		let accountNumber: string;
 		let accountBalance: number;
