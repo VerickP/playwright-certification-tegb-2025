@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../src/pages/login_page";
 import { DashboardPage } from "../../src/pages/dashboard_page";
 
-test("Profile summary visual test", async ({ page }) => {
+test("Profile summary visual test @github-actions", async ({ page }) => {
 	const username = process.env.DASHBOARD_USERNAME;
 	const password = process.env.DASHBOARD_PASSWORD;
 
