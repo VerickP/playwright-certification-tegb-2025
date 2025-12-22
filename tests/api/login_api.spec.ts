@@ -15,7 +15,7 @@ test("Login API returns token", async ({ request }) => {
 
 	await request.post(`${apiUrl}api/tegb/register`, { data: user });
 
-	const response = await request.post(`${apiUrl}/tegb/login`, {
+	const response = await request.post(`${apiUrl}api/tegb/login`, {
 		data: {
 			username: user.username,
 			password: user.password,
