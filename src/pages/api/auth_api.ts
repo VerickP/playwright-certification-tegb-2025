@@ -14,12 +14,9 @@ export class AuthApi {
 	}
 
 	async login(username: string, password: string): Promise<this> {
-		const response = await this.request.post(
-			`${this.apiUrl}/api/tegb/login`,
-			{
-				data: { username, password },
-			}
-		);
+		const response = await this.request.post(`${this.apiUrl}/tegb/login`, {
+			data: { username, password },
+		});
 
 		expect(response.status()).toBe(201);
 
@@ -32,7 +29,7 @@ export class AuthApi {
 
 	async register(username: string, email: string, password: string) {
 		const response = await this.request.post(
-			`${this.apiUrl}/api/tegb/register`,
+			`${this.apiUrl}/tegb/register`,
 			{ data: { username, email, password } }
 		);
 
