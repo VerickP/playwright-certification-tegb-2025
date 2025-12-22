@@ -22,7 +22,7 @@ export class AccountApi {
 
 	async createAccount(startBalance: number, type = "Test") {
 		const response = await this.request.post(
-			`${this.apiUrl}/tegb/accounts/create`,
+			`${this.apiUrl}/api/tegb/accounts/create`,
 			{
 				headers: {
 					Authorization: `Bearer ${this.token}`,
