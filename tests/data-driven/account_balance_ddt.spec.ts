@@ -38,3 +38,9 @@ balances.forEach(({ balance }) => {
 		);
 	});
 });
+
+/* Hodnoty -196 000 921 Kč, 298 000 123 Kč ze zadání jsou odstraněny z testu jelikož pokud byly hodnoty v testu, test
+  neprošel -  ackoliv jsou v
+  rozsahu,(měly by být povolené - info od Petra ) který by měl backend přijímat, tak je neprijme.
+  Bug v aplikaci jsem nahlásila.
+ */

@@ -11,30 +11,23 @@ interface UserProfile {
 export class DashboardPage {
 	readonly page: Page;
 
-	// Hlavicka
 	readonly appTitle: Locator;
 	readonly logoutButton: Locator;
 	readonly appLogo: Locator;
-
-	//levé menu
 
 	readonly menuHome: Locator;
 	readonly menuAccounts: Locator;
 	readonly menuTransactions: Locator;
 	readonly menuSupport: Locator;
 
-	//upravy profilu
 	readonly editProfileButton: Locator;
 	readonly profileDetailsTitle: Locator;
 
-	//profil
 	readonly profilName: Locator;
 	readonly profilSurname: Locator;
 	readonly profilEmail: Locator;
 	readonly profilPhone: Locator;
 	readonly profilAge: Locator;
-
-	//bankovni ucet
 
 	readonly accountsTitle: Locator;
 	readonly accountNumber: Locator;
@@ -57,13 +50,9 @@ export class DashboardPage {
 	constructor(page: Page) {
 		this.page = page;
 
-		// Hlavicka lokator
-
 		this.appTitle = page.getByTestId("app-title");
 		this.appLogo = page.getByTestId("logo-img");
 		this.logoutButton = page.getByTestId("logout-button");
-
-		//levé menu
 
 		this.menuHome = page.locator("//li[contains(text(),'Domů')]");
 		this.menuAccounts = page.locator("//li[contains(text(),'Účty')]");
@@ -87,8 +76,6 @@ export class DashboardPage {
 		this.accountBalance = page.getByTestId("account-balance-heading");
 		this.accountType = page.getByTestId("account-type-heading");
 		this.addAccountButton = page.getByTestId("add-account-button");
-
-		// edit profilu
 
 		this.editNameInput = page.getByTestId("chage-name-input");
 		this.editSurnameInput = page.getByTestId("chage-surname-input");
