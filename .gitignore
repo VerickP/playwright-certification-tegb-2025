@@ -1,0 +1,19 @@
+# Node
+node_modules/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Environment variables
+.env
+*.env
+
+# ESLint
+.eslintcache
+
+# macOS
+.DS_Store
